@@ -21,12 +21,21 @@ public class MyBeanResolver
         context = _context;
     }
 
-    public <T> T getOrElse(String _propertyName, Class<T> _class)
+    /**
+     * Find spring bean implementation of {@code _contract}, with name {@code _propertyName}. If not found, then the
+     * {@code _defaultImpl} bean will be returned. Both beans must implement the S interface.
+     *
+     * @param _contract
+     * @param _propertyName
+     * @param _defaultImpl
+     * @return <S>
+     */
+    public <S, T extends S> S getOrElse(Class<S> _contract, String _propertyName, Class<T> _defaultImpl)
     {
         var beanName = context.getEnvironment().getProperty(_propertyName);
         if (beanName == null)
-            return context.getBean(_class);
+            return context.getBean(_defaultImpl);
         else
-            return (T) context.getBean(beanName);
+            return context.getBean(beanName, _contract);
     }
 }

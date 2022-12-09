@@ -31,7 +31,7 @@ public class JobOrderController
     public JobOrderController(ApplicationContext _context, MyBeanResolver _beanResolver)
     {
         beanResolver = _beanResolver;
-        jobOrderUseCase = beanResolver.getOrElse("JobOrderUseCaseImpl", JobOrderService.class);
+        jobOrderUseCase = beanResolver.getOrElse(JobOrderUseCase.class, "JobOrderUseCaseImpl", JobOrderService.class);
 
 //        var beanName = _context.getEnvironment().getProperty("JobOrderUseCaseImpl");
 //        System.out.println("${JobOrderUseCaseImpl} -> " + beanName);
